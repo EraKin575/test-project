@@ -1,0 +1,31 @@
+name: 'codecov'
+description: 'Submit code coverage to codecov'
+
+inputs:
+  files:
+    type: string
+    required: true
+    description: A comma-separated list of coverage reports to upload.
+  flags:
+    type: string
+    required: false
+    description: Codecov flags to use to tag the reports.
+
+runs:
+  using: "composite"
+  steps:
+    - name: Remove excluded paths from reports
+      shell: bash
+      run: |
+        echo "${{ inputs.files }}"
+        echo "${{ inputs.flags }}"
+
+    - name: Upload coverage to codecov
+      uses: codecov/codecov-action@v3.1.2
+      with:
+        files: ${{ inputs.files }}
+        flags: ${{ inputs.flags }}
+        verbose: true
+        fail_ci_if_error: true
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

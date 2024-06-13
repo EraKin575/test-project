@@ -1,0 +1,41 @@
+name: test
+
+on:
+  # allow running release workflow manually
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+      with:
+        submodules: true
+
+    - name: Fetch git tags
+      run: |
+        git fetch --prune --unshallow --tags
+
+    - name: which lsof
+      run: /bin/bash -c "which lsof"
+
+    - name: lsof
+      run: sudo /usr/bin/lsof -iTCP -sTCP:LISTEN -P +c0
+
+    - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
+      with:
+        go-version: 1.22.x
+
+    # - name: Install Go Tip
+    #   uses: ./.github/actions/setup-go-tip
+
+    - name: lsof via Go
+      run: go run ./
+
+    - name: Fail early if the latest tag is not in semver format
+      id: validate-semver
+      run: |
+        which egrep
+        # echo v1.50.2 | egrep '^v\d+.\d+.\d+$'
+        echo v1.50.2 | egrep '^v[0-9]+.[0-9]+.[0-9]+$'
