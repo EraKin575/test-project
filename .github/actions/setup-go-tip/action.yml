@@ -46,12 +46,15 @@ runs:
       run: |
         go install golang.org/dl/gotip@latest
         gotip download
-        echo "GOROOT=$(go env GOROOT)" >> $GITHUB_ENV
-        echo "GOTIP_BIN=$(go env GOPATH)/bin/gotip" >> $GITHUB_ENV
-      
+        export PATH="$GOROOT/bin/:$GOPATH/bin:$PATH"
+        echo "GOROOT=$GOROOT" >> $GITHUB_ENV
+        echo "GOPATH=$GOPATH" >> $GITHUB_ENV
+        echo "PATH=$PATH" >> $GITHUB_ENV
+
     - name: Check Go Version
       shell: bash
       run: |
+
         echo "Active Go version:"
         go version
 
