@@ -50,11 +50,10 @@ runs:
         echo "GOROOT=$GOROOT" >> $GITHUB_ENV
         echo "GOPATH=$GOPATH" >> $GITHUB_ENV
         echo "PATH=$PATH" >> $GITHUB_ENV
-
+      
     - name: Check Go Version
       shell: bash
       run: |
-
         echo "Active Go version:"
         go version
 
