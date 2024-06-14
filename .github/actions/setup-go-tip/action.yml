@@ -54,9 +54,8 @@ runs:
        echo "GOROOT=$GOROOT" >> $GITHUB_ENV
        echo "GOPATH=$GOPATH" >> $GITHUB_ENV
        echo "PATH=$PATH" >> $GITHUB_ENV
-    - name: Fail if Go Tip is not installed
-      if: steps.try-to-download-go-tip.outputs.download_status == 'false' && failure()
+    - name: Check Go Version
       shell: bash
       run: |
-        echo "Both downloading and building Go Tip failed."
-        exit 1
+        echo "Active Go version:"
+        go version
