@@ -10,7 +10,7 @@ runs:
         set -euo pipefail
         tip=$(git ls-remote https://github.com/golang/go.git HEAD | awk '{print $1;}')
         echo "Go Tip version: ${tip}"
-        retries=10
+        retries=5
         wait_time=30
         success=false
         for ((i=1; i<=retries; i++)); do
