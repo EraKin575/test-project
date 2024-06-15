@@ -38,7 +38,6 @@ runs:
         echo "GOROOT=$GOROOT" >> $GITHUB_ENV
         echo "GOPATH=$GOPATH" >> $GITHUB_ENV
         echo "PATH=$PATH" >> $GITHUB_ENV
-        ln -sf $GOROOT/bin/go $HOME/bin/go
         echo "Active Go version after installation:"
         go version
 
@@ -46,18 +45,17 @@ runs:
       if: steps.try-to-download-go-tip.outputs.download_status == 'false'
       shell: bash
       run: |
-        go install golang.org/dl/gotip@latest
-        gotip download
-        export GOROOT="$HOME/sdk/gotip"
-        export GOPATH="$HOME/go"
-        mkdir -p $GOROOT
-        export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
-        echo "GOROOT=$GOROOT" >> $GITHUB_ENV
-        echo "GOPATH=$GOPATH" >> $GITHUB_ENV
-        echo "PATH=$PATH" >> $GITHUB_ENV
-        ln -sf $GOROOT/bin/go $HOME/bin/go
-        echo "Active Go version after building from source:"
-        gotip version
+       go install golang.org/dl/gotip@latest
+       gotip download
+       export GOROOT="$HOME/sdk/gotip"
+       export GOPATH="$HOME/go"
+       mkdir -p $GOROOT
+       export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
+       echo "GOROOT=$GOROOT" >> $GITHUB_ENV
+       echo "GOPATH=$GOPATH" >> $GITHUB_ENV
+       echo "PATH=$PATH" >> $GITHUB_ENV
+       echo "Active Go version after installation:"
+       go version
 
     - name: Check Go Version
       shell: bash
