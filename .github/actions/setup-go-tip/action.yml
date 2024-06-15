@@ -38,6 +38,7 @@ runs:
         echo "GOROOT=$GOROOT" >> $GITHUB_ENV
         echo "GOPATH=$GOPATH" >> $GITHUB_ENV
         echo "PATH=$PATH" >> $GITHUB_ENV
+        ln -sf $GOROOT/bin/go $HOME/bin/go
         echo "Active Go version after installation:"
         go version
 
@@ -54,6 +55,7 @@ runs:
         echo "GOROOT=$GOROOT" >> $GITHUB_ENV
         echo "GOPATH=$GOPATH" >> $GITHUB_ENV
         echo "PATH=$PATH" >> $GITHUB_ENV
+        ln -sf $GOROOT/bin/go $HOME/bin/go
         echo "Active Go version after building from source:"
         gotip version
 
