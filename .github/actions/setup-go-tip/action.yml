@@ -46,7 +46,7 @@ runs:
       shell: bash
       run: |
        go install golang.org/dl/gotip@latest
-       gotip download
+       gotip download go1.22.4
        export GOROOT="$HOME/sdk/gotip"
        export GOPATH="$HOME/go"
        mkdir -p $GOROOT
